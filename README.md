@@ -26,7 +26,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
   * app router
   * server components
   * server actions
-  * state management with mobx-state-tree
+  * state management with Zustand
 * Tailwind
 * shadcn/ui
 * Databases (coming later)
