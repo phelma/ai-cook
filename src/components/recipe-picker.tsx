@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
@@ -11,10 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select'
-import { useChat } from 'ai/react'
-import { useEffect } from 'react'
-
-import { useCompletion } from 'ai/react'
+import { getMealIdeas } from '@/app/actions'
 
 function RecipeSuggestions({
   protein,
@@ -25,45 +22,20 @@ function RecipeSuggestions({
   carb: string
   veg: string
 }) {
-  const { completion, complete } = useCompletion({
-    api: '/api/chat',
-  })
-
-  const { suggestions, setSuggestions, setSelectedRecipe } = useRecipeStore()
-
-  useEffect(() => {
-    const generateSuggestions = async () => {
-      const result = await complete(
-        `Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, include the ingredient names in the meal name where appropriate.`
-      )
-      if (result) {
-        const mealIdeas = result
-          .split('\n')
-          .filter((line) => line.trim())
-          .map((title) => ({
-            id: crypto.randomUUID(),
-            title,
-            ingredients: [],
-            instructions: [],
-          }))
-        setSuggestions(mealIdeas)
-      }
-    }
-    generateSuggestions()
-  }, [protein, carb, veg, complete, setSuggestions])
+  const [generation, setGeneration] = useState<string>('')
+  // const { suggestions, setSuggestions, setSelectedRecipe } = useRecipeStore()
 
   return (
-    <div className="space-y-4">
-      {suggestions.map((recipe) => (
-        <Button
-          key={recipe.id}
-          variant="outline"
-          className="w-full text-left h-auto py-4"
-          onClick={() => setSelectedRecipe(recipe)}
-        >
-          {recipe.title}
-        </Button>
-      ))}
+    <div>
+      <button
+        onClick={async () => {
+          const { text } = await getMealIdeas({ protein, carb, veg })
+          setGeneration(text)
+        }}
+      >
+        Answer
+      </button>
+      <div>{generation}</div>
     </div>
   )
 }
@@ -168,26 +140,11 @@ export function RecipePicker() {
       </div>
 
       {selectedProtein && selectedCarb && selectedVeg ? (
-        <div className="space-y-4">
-          {suggestions.length === 0 ? (
-            <Button 
-              onClick={() => {
-                setSuggestions([]);
-                setShowSuggestions(true);
-              }}
-              className="w-full"
-            >
-              Generate Recipe Suggestions
-            </Button>
-          ) : null}
-          {suggestions.length > 0 && (
-            <RecipeSuggestions
-              protein={selectedProtein}
-              carb={selectedCarb}
-              veg={selectedVeg}
-            />
-          )}
-        </div>
+        <RecipeSuggestions
+          protein={selectedProtein}
+          carb={selectedCarb}
+          veg={selectedVeg}
+        />
       ) : (
         <div className="text-stone-500">
           Select one ingredient from each category to generate recipe
