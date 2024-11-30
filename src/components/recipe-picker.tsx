@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
@@ -68,6 +69,7 @@ function RecipeSuggestions({
 }
 
 export function RecipePicker() {
+  const [showSuggestions, setShowSuggestions] = React.useState(false)
   const ingredients = useIngredientsStore((state) => state.ingredients)
   const {
     suggestions,
@@ -167,24 +169,24 @@ export function RecipePicker() {
 
       {selectedProtein && selectedCarb && selectedVeg ? (
         <div className="space-y-4">
-          <Button 
-            onClick={() => {
-              setSuggestions([]);
-              return <RecipeSuggestions
-                protein={selectedProtein}
-                carb={selectedCarb}
-                veg={selectedVeg}
-              />;
-            }}
-            className="w-full"
-          >
-            Generate Recipe Suggestions
-          </Button>
-          <RecipeSuggestions
-            protein={selectedProtein}
-            carb={selectedCarb}
-            veg={selectedVeg}
-          />
+          {suggestions.length === 0 ? (
+            <Button 
+              onClick={() => {
+                setSuggestions([]);
+                setShowSuggestions(true);
+              }}
+              className="w-full"
+            >
+              Generate Recipe Suggestions
+            </Button>
+          ) : null}
+          {suggestions.length > 0 && (
+            <RecipeSuggestions
+              protein={selectedProtein}
+              carb={selectedCarb}
+              veg={selectedVeg}
+            />
+          )}
         </div>
       ) : (
         <div className="text-stone-500">
