@@ -90,5 +90,13 @@ export const useIngredientsStore = create<IngredientsState>()(
       name: 'Ingredients Store',
       enabled: true,
     }
-  )
+  ))
+)
+
+// Subscribe to all state changes
+useIngredientsStore.subscribe(
+  (state) => state,
+  (state) => {
+    console.log('Store updated:', state)
+  }
 )
