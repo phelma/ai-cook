@@ -23,7 +23,8 @@ function RecipeSuggestions({
   veg: string
 }) {
   const [generation, setGeneration] = useState<string>('')
-  // const { suggestions, setSuggestions, setSelectedRecipe } = useRecipeStore()
+  const [selectedMeal, setSelectedMeal] = useState<string | null>(null)
+  const [recipe, setRecipe] = useState<string | null>(null)
 
   return (
     <div className="space-y-4">
@@ -32,20 +33,37 @@ function RecipeSuggestions({
         onClick={async () => {
           const { text } = await getMealIdeas({ protein, carb, veg })
           setGeneration(text)
+          setSelectedMeal(null)
+          setRecipe(null)
         }}
       >
         Generate Recipe Ideas
       </Button>
-      {/* {generation && (
-        <div className="p-4 border rounded-lg bg-white shadow-sm">
-          <p className="whitespace-pre-wrap">{generation}</p>
+      
+      {generation && (
+        <div className="flex flex-col gap-4 items-start">
+          {generation.split('\n').filter(Boolean).map((item) => (
+            <Button 
+              key={item}
+              variant={selectedMeal === item ? "default" : "secondary"}
+              onClick={async () => {
+                setSelectedMeal(item)
+                const { text } = await getRecipe({ mealName: item, protein, carb, veg })
+                setRecipe(text)
+              }}
+            >
+              {item}
+            </Button>
+          ))}
         </div>
-      )} */}
-      <div className="flex flex-col gap-4 items-start">
-        {generation.split('\n').map((item) => (
-          <Button variant="secondary">{item}</Button>
-        ))}
-      </div>
+      )}
+
+      {recipe && (
+        <div className="p-6 border rounded-lg bg-white shadow-sm">
+          <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
+          <div className="whitespace-pre-wrap">{recipe}</div>
+        </div>
+      )}
     </div>
   )
 }

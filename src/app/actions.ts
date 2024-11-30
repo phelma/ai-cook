@@ -20,3 +20,27 @@ export async function getMealIdeas({
 
   return { text, finishReason, usage }
 }
+
+export async function getRecipe({
+  mealName,
+  protein,
+  carb,
+  veg,
+}: {
+  mealName: string
+  protein: string
+  carb: string
+  veg: string
+}) {
+  const prompt = `Generate a detailed recipe for "${mealName}" using ${protein}, ${carb}, and ${veg} as the main ingredients. Include:
+  1. A list of all ingredients with quantities
+  2. Step by step cooking instructions
+  Format the output with clear sections for ingredients and instructions.`
+  
+  const { text, finishReason, usage } = await generateText({
+    model: anthropic('claude-3-5-haiku-latest'),
+    prompt,
+  })
+
+  return { text, finishReason, usage }
+}
