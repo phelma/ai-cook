@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic'
-import { streamText } from 'ai'
+import { generateText } from 'ai'
 
-// Allow streaming responses up to 30 seconds
+// Allow responses up to 30 seconds
 export const maxDuration = 30
 
 export async function GET(req: Request) {
@@ -12,10 +12,12 @@ export async function GET(req: Request) {
     return new Response('Missing prompt parameter', { status: 400 })
   }
 
-  const result = streamText({
+  const result = await generateText({
     model: anthropic('claude-3-5-haiku-latest'),
     messages: [{ role: 'user', content: prompt }],
   })
 
-  return result.toDataStreamResponse()
+  return new Response(result, {
+    headers: { 'Content-Type': 'text/plain' },
+  })
 }
