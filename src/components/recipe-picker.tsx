@@ -22,9 +22,7 @@ function RecipeSuggestions({
   carb: string
   veg: string
 }) {
-  const [generation, setGeneration] = useState<string>('')
-  const [selectedMeal, setSelectedMeal] = useState<string | null>(null)
-  const [recipe, setRecipe] = useState<string | null>(null)
+  const { generatedMeals, selectedMeal, recipeText, setGeneratedMeals, setSelectedMeal, setRecipeText } = useRecipeStore()
 
   return (
     <div className="space-y-4">
@@ -32,17 +30,17 @@ function RecipeSuggestions({
         className="w-full"
         onClick={async () => {
           const { text } = await getMealIdeas({ protein, carb, veg })
-          setGeneration(text)
+          setGeneratedMeals(text)
           setSelectedMeal(null)
-          setRecipe(null)
+          setRecipeText(null)
         }}
       >
         Generate Recipe Ideas
       </Button>
 
-      {generation && (
+      {generatedMeals && (
         <div className="flex flex-col gap-4 items-start">
-          {generation
+          {generatedMeals
             .split('\n')
             .filter(Boolean)
             .map((item) => (
@@ -57,7 +55,7 @@ function RecipeSuggestions({
                     carb,
                     veg,
                   })
-                  setRecipe(text)
+                  setRecipeText(text)
                 }}
               >
                 {item}
@@ -66,10 +64,10 @@ function RecipeSuggestions({
         </div>
       )}
 
-      {recipe && (
+      {recipeText && (
         <div className="p-6 border rounded-lg bg-white shadow-sm">
           <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
-          <div className="whitespace-pre-wrap">{recipe}</div>
+          <div className="whitespace-pre-wrap">{recipeText}</div>
         </div>
       )}
     </div>
