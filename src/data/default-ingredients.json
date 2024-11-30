@@ -1,0 +1,38 @@
+{
+  "protein": [
+    "Chicken Breast",
+    "Salmon Fillet",
+    "Ground Beef",
+    "Tofu",
+    "Pork Chops",
+    "Shrimp",
+    "Eggs",
+    "Turkey Breast",
+    "Tuna",
+    "Chickpeas"
+  ],
+  "carb": [
+    "White Rice",
+    "Brown Rice",
+    "Pasta",
+    "Sweet Potato",
+    "Quinoa",
+    "Couscous",
+    "Bread",
+    "Potato",
+    "Noodles",
+    "Barley"
+  ],
+  "veg": [
+    "Broccoli",
+    "Spinach",
+    "Carrots",
+    "Green Beans",
+    "Bell Peppers",
+    "Asparagus",
+    "Zucchini",
+    "Brussels Sprouts",
+    "Cauliflower",
+    "Kale"
+  ]
+}
