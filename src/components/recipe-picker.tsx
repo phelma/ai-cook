@@ -28,7 +28,7 @@ function RecipeSuggestions({
     api: '/api/chat',
   })
 
-  const setSuggestions = useRecipeStore((state) => state.setSuggestions)
+  const { suggestions, setSuggestions, setSelectedRecipe } = useRecipeStore()
 
   useEffect(() => {
     const generateSuggestions = async () => {
