@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import defaultIngredients from '@/data/default-ingredients.json'
+import { useState } from 'react'
+import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -16,36 +16,32 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { PlusCircle } from 'lucide-react'
 
-type Ingredient = {
-  name: string
-  type: 'protein' | 'carb' | 'veg' | 'other'
-}
-
 export default function IngredientPicker() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    ...defaultIngredients.protein.map((name) => ({ name, type: 'protein' })),
-    ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' })),
-    ...defaultIngredients.veg.map((name) => ({ name, type: 'veg' })),
-  ])
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
-    ingredients.map((ing) => ing.name)
-  )
   const [newIngredient, setNewIngredient] = useState('')
-  const [newIngredientType, setNewIngredientType] =
-    useState<Ingredient['type']>('other')
-  const [equipment, setEquipment] = useState<string[]>([])
-  const [allergies, setAllergies] = useState<string[]>([])
-  const [dietPreferences, setDietPreferences] = useState<string[]>([])
-  const [servings, setServings] = useState(1)
-  const [units, setUnits] = useState('metric')
-  const [additionalRequirements, setAdditionalRequirements] = useState('')
+  const [newIngredientType, setNewIngredientType] = useState<'protein' | 'carb' | 'veg' | 'other'>('other')
+  
+  const {
+    ingredients,
+    selectedIngredients,
+    equipment,
+    allergies,
+    dietPreferences,
+    servings,
+    units,
+    additionalRequirements,
+    addIngredient: addIngredientToStore,
+    toggleIngredientSelection,
+    toggleEquipment,
+    toggleAllergy,
+    toggleDietPreference,
+    setServings,
+    setUnits,
+    setAdditionalRequirements,
+  } = useIngredientsStore()
 
   const addIngredient = () => {
     if (newIngredient) {
-      setIngredients([
-        ...ingredients,
-        { name: newIngredient, type: newIngredientType },
-      ])
+      addIngredientToStore(newIngredient, newIngredientType)
       setNewIngredient('')
     }
   }
@@ -67,15 +63,7 @@ export default function IngredientPicker() {
                     <Checkbox
                       id={ing.name}
                       checked={selectedIngredients.includes(ing.name)}
-                      onCheckedChange={(checked) => {
-                        setSelectedIngredients(
-                          checked
-                            ? [...selectedIngredients, ing.name]
-                            : selectedIngredients.filter(
-                                (name) => name !== ing.name
-                              )
-                        )
-                      }}
+                      onCheckedChange={() => toggleIngredientSelection(ing.name)}
                     />
                     <Label htmlFor={ing.name}>{ing.name}</Label>
                   </div>
@@ -135,13 +123,7 @@ export default function IngredientPicker() {
                 <Checkbox
                   id={item}
                   checked={equipment.includes(item)}
-                  onCheckedChange={(checked) => {
-                    setEquipment(
-                      checked
-                        ? [...equipment, item]
-                        : equipment.filter((i) => i !== item)
-                    )
-                  }}
+                  onCheckedChange={() => toggleEquipment(item)}
                 />
                 <Label htmlFor={item}>{item}</Label>
               </div>
@@ -161,13 +143,7 @@ export default function IngredientPicker() {
                   <Checkbox
                     id={`allergy-${item}`}
                     checked={allergies.includes(item)}
-                    onCheckedChange={(checked) => {
-                      setAllergies(
-                        checked
-                          ? [...allergies, item]
-                          : allergies.filter((i) => i !== item)
-                      )
-                    }}
+                    onCheckedChange={() => toggleAllergy(item)}
                   />
                   <Label htmlFor={`allergy-${item}`}>{item}</Label>
                 </div>
@@ -183,13 +159,7 @@ export default function IngredientPicker() {
                     <Checkbox
                       id={`diet-${item}`}
                       checked={dietPreferences.includes(item)}
-                      onCheckedChange={(checked) => {
-                        setDietPreferences(
-                          checked
-                            ? [...dietPreferences, item]
-                            : dietPreferences.filter((i) => i !== item)
-                        )
-                      }}
+                      onCheckedChange={() => toggleDietPreference(item)}
                     />
                     <Label htmlFor={`diet-${item}`}>{item}</Label>
                   </div>
@@ -210,7 +180,7 @@ export default function IngredientPicker() {
               type="number"
               min="1"
               value={servings}
-              onChange={(e) => setServings(parseInt(e.target.value))}
+              onChange={(e) => setServings(parseInt(e.target.value) || 1)}
             />
           </div>
           <div className="space-y-2">
