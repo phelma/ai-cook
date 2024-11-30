@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select'
-import { getMealIdeas } from '@/app/actions'
+import { getMealIdeas, getRecipe } from '@/app/actions'
 
 function RecipeSuggestions({
   protein,
@@ -39,22 +39,30 @@ function RecipeSuggestions({
       >
         Generate Recipe Ideas
       </Button>
-      
+
       {generation && (
         <div className="flex flex-col gap-4 items-start">
-          {generation.split('\n').filter(Boolean).map((item) => (
-            <Button 
-              key={item}
-              variant={selectedMeal === item ? "default" : "secondary"}
-              onClick={async () => {
-                setSelectedMeal(item)
-                const { text } = await getRecipe({ mealName: item, protein, carb, veg })
-                setRecipe(text)
-              }}
-            >
-              {item}
-            </Button>
-          ))}
+          {generation
+            .split('\n')
+            .filter(Boolean)
+            .map((item) => (
+              <Button
+                key={item}
+                variant={selectedMeal === item ? 'default' : 'secondary'}
+                onClick={async () => {
+                  setSelectedMeal(item)
+                  const { text } = await getRecipe({
+                    mealName: item,
+                    protein,
+                    carb,
+                    veg,
+                  })
+                  setRecipe(text)
+                }}
+              >
+                {item}
+              </Button>
+            ))}
         </div>
       )}
 
