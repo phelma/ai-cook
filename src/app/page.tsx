@@ -1,9 +1,10 @@
-import IngredientPicker from '@/components/ingredient-picker'
+import { RecipePicker } from '@/components/recipe-picker'
 
-export default function Home() {
+export default function RecipePickerPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-stone-950">
-      <IngredientPicker />
+    <main className="container mx-auto py-8">
+      <h1 className="text-3xl font-bold mb-8">Recipe Picker</h1>
+      <RecipePicker />
     </main>
   )
 }
