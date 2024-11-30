@@ -18,8 +18,10 @@ import { PlusCircle } from 'lucide-react'
 
 export default function IngredientPicker() {
   const [newIngredient, setNewIngredient] = useState('')
-  const [newIngredientType, setNewIngredientType] = useState<'protein' | 'carb' | 'veg' | 'other'>('other')
-  
+  const [newIngredientType, setNewIngredientType] = useState<
+    'protein' | 'carb' | 'veg' | 'other'
+  >('other')
+
   const {
     ingredients,
     selectedIngredients,
@@ -63,7 +65,9 @@ export default function IngredientPicker() {
                     <Checkbox
                       id={ing.name}
                       checked={selectedIngredients.includes(ing.name)}
-                      onCheckedChange={() => toggleIngredientSelection(ing.name)}
+                      onCheckedChange={() =>
+                        toggleIngredientSelection(ing.name)
+                      }
                     />
                     <Label htmlFor={ing.name}>{ing.name}</Label>
                   </div>
@@ -117,18 +121,24 @@ export default function IngredientPicker() {
       <div className="space-y-4">
         <h2 className="text-2xl font-semibold">Equipment</h2>
         <div className="flex flex-wrap gap-2">
-          {['Oven', 'Stovetop', 'Microwave', 'Blender', 'Slow Cooker'].map(
-            (item) => (
-              <div key={item} className="flex items-center space-x-2">
-                <Checkbox
-                  id={item}
-                  checked={equipment.includes(item)}
-                  onCheckedChange={() => toggleEquipment(item)}
-                />
-                <Label htmlFor={item}>{item}</Label>
-              </div>
-            )
-          )}
+          {[
+            'Oven',
+            'Stovetop',
+            'Microwave',
+            'Blender',
+            'Slow Cooker',
+            'Air Fryer',
+            'Pressure Cooker',
+          ].map((item) => (
+            <div key={item} className="flex items-center space-x-2">
+              <Checkbox
+                id={item}
+                checked={equipment.includes(item)}
+                onCheckedChange={() => toggleEquipment(item)}
+              />
+              <Label htmlFor={item}>{item}</Label>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -190,8 +200,8 @@ export default function IngredientPicker() {
                 <SelectValue placeholder="Select units" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="metric">Metric</SelectItem>
-                <SelectItem value="imperial">Imperial</SelectItem>
+                <SelectItem value="UK">UK</SelectItem>
+                <SelectItem value="US">US</SelectItem>
               </SelectContent>
             </Select>
           </div>

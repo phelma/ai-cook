@@ -65,14 +65,14 @@ e.g. broccoli, carrots, spinach,
 
 #### Recipe picker
 
-* User picks 3 ingrediends
-* Once the three ingredients have been picked, several AI generated suggestions for meals using them are shown
+* User picks 3 ingredients, one each of Protein, Carbs, Veggies
+* Once the three ingredients have been picked, several AI generated suggestions for meals using them are shown,
 * User can pick a meal from the list to get the full recipe
 
-Coming Later
+<!-- Coming Later
 
 * Slot machine style interface, with 3 spinning wheels, one for protein, one for carbs, one for veggies
 * When the user clicks spin, the wheels stop on a random selection
 * user is free to fix some of the selections and spin again
 * they can also nudge through the options
-* they are completely free to pick whatever they want, but the spinning makes it creative and fun
+* they are completely free to pick whatever they want, but the spinning makes it creative and fun -->

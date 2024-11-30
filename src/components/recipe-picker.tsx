@@ -1,32 +1,67 @@
 'use client'
 
-import { useIngredientsStore } from "@/store/use-ingredients-store"
-import { useRecipeStore } from "@/store/use-recipe-store"
-import { Button } from "./ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { useIngredientsStore } from '@/store/use-ingredients-store'
+import { useRecipeStore } from '@/store/use-recipe-store'
+import { Button } from './ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select'
+import { useChat } from 'ai/react'
+
+function Chat() {
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    initialInput: 'foo',
+  })
+  return (
+    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
+      {messages.map((m) => (
+        <div key={m.id} className="whitespace-pre-wrap">
+          {m.role === 'user' ? 'User: ' : 'AI: '}
+          {m.content}
+        </div>
+      ))}
+
+      <form onSubmit={handleSubmit}>
+        <input
+          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
+          value={input}
+          placeholder="Say something..."
+          onChange={handleInputChange}
+        />
+      </form>
+    </div>
+  )
+}
 
 export function RecipePicker() {
   const ingredients = useIngredientsStore((state) => state.ingredients)
-  const { 
-    suggestions, 
-    selectedProtein, 
-    selectedCarb, 
+  const {
+    suggestions,
+    selectedProtein,
+    selectedCarb,
     selectedVeg,
     setSelectedProtein,
     setSelectedCarb,
-    setSelectedVeg
+    setSelectedVeg,
   } = useRecipeStore()
 
-  const proteins = ingredients.filter(ing => ing.type === 'protein')
-  const carbs = ingredients.filter(ing => ing.type === 'carb')
-  const veggies = ingredients.filter(ing => ing.type === 'veg')
+  const proteins = ingredients.filter((ing) => ing.type === 'protein')
+  const carbs = ingredients.filter((ing) => ing.type === 'carb')
+  const veggies = ingredients.filter((ing) => ing.type === 'veg')
 
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-4">
         <div>
           <h2 className="text-lg font-medium mb-2">Protein</h2>
-          <Select value={selectedProtein || undefined} onValueChange={setSelectedProtein}>
+          <Select
+            value={selectedProtein || undefined}
+            onValueChange={setSelectedProtein}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select protein" />
             </SelectTrigger>
@@ -42,7 +77,10 @@ export function RecipePicker() {
 
         <div>
           <h2 className="text-lg font-medium mb-2">Carbs</h2>
-          <Select value={selectedCarb || undefined} onValueChange={setSelectedCarb}>
+          <Select
+            value={selectedCarb || undefined}
+            onValueChange={setSelectedCarb}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select carbs" />
             </SelectTrigger>
@@ -58,7 +96,10 @@ export function RecipePicker() {
 
         <div>
           <h2 className="text-lg font-medium mb-2">Vegetables</h2>
-          <Select value={selectedVeg || undefined} onValueChange={setSelectedVeg}>
+          <Select
+            value={selectedVeg || undefined}
+            onValueChange={setSelectedVeg}
+          >
             <SelectTrigger>
               <SelectValue placeholder="Select vegetable" />
             </SelectTrigger>
@@ -94,6 +135,7 @@ export function RecipePicker() {
       </div>
 
       <Button>Generate Recipe Suggestions</Button>
+      <Chat />
     </div>
   )
 }
