@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { devtools, subscribeWithSelector } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import defaultIngredients from '@/data/default-ingredients.json'
 
 type Ingredient = {
@@ -31,6 +32,7 @@ interface IngredientsState {
 export const useIngredientsStore = create<IngredientsState>()(
   subscribeWithSelector(
     devtools(
+      persist(
     (set) => ({
       ingredients: [
         ...defaultIngredients.protein.map((name) => ({
@@ -94,6 +96,11 @@ export const useIngredientsStore = create<IngredientsState>()(
       name: 'Ingredients Store',
       enabled: true,
     }
+  ),
+  {
+    name: 'ingredients-storage',
+    storage: createJSONStorage(() => localStorage),
+  }
   ))
 )
 
