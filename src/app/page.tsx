@@ -1,11 +1,9 @@
-import IngredientPicker from "@/components/IngredientPicker";
+import IngredientPicker from '@/components/ingredient-picker'
 
 export default function Home() {
   return (
-    <div className="min-h-screen p-8">
-      <main>
-        <IngredientPicker />
-      </main>
-    </div>
-  );
+    <main className="min-h-screen bg-white dark:bg-stone-950">
+      <IngredientPicker />
+    </main>
+  )
 }
