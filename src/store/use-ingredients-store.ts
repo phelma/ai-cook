@@ -57,6 +57,7 @@ export const useIngredientsStore = create<IngredientsState>()(
           addIngredient: (name, type) =>
             set((state) => ({
               ingredients: [...state.ingredients, { name, type }],
+              selectedIngredients: [...state.selectedIngredients, name],
             })),
 
           toggleIngredientSelection: (name) =>
