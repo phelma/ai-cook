@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import defaultIngredients from '@/data/default-ingredients.json'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -21,7 +22,11 @@ type Ingredient = {
 }
 
 export default function IngredientPicker() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    ...defaultIngredients.protein.map(name => ({ name, type: 'protein' })),
+    ...defaultIngredients.carb.map(name => ({ name, type: 'carb' })),
+    ...defaultIngredients.veg.map(name => ({ name, type: 'veg' }))
+  ])
   const [newIngredient, setNewIngredient] = useState('')
   const [newIngredientType, setNewIngredientType] =
     useState<Ingredient['type']>('other')
