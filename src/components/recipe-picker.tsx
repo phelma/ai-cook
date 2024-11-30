@@ -12,9 +12,17 @@ import {
 } from './ui/select'
 import { useChat } from 'ai/react'
 
-function Chat({ protein, carb, veg }: { protein: string; carb: string; veg: string }) {
+function Chat({
+  protein,
+  carb,
+  veg,
+}: {
+  protein: string
+  carb: string
+  veg: string
+}) {
   const { messages, input, handleInputChange, handleSubmit } = useChat({
-    initialInput: `Generate a recipe using these ingredients: ${protein} (protein), ${carb} (carbs), and ${veg} (vegetable). Include a title, ingredients list with quantities, and step-by-step cooking instructions.`,
+    initialInput: `Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, include the ingredient names in the meal name where appropriate.`,
   })
   return (
     <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
@@ -135,14 +143,11 @@ export function RecipePicker() {
       </div>
 
       {selectedProtein && selectedCarb && selectedVeg ? (
-        <Chat 
-          protein={selectedProtein} 
-          carb={selectedCarb} 
-          veg={selectedVeg}
-        />
+        <Chat protein={selectedProtein} carb={selectedCarb} veg={selectedVeg} />
       ) : (
         <div className="text-stone-500">
-          Select one ingredient from each category to generate recipe suggestions.
+          Select one ingredient from each category to generate recipe
+          suggestions.
         </div>
       )}
     </div>
