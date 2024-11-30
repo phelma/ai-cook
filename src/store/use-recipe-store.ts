@@ -26,7 +26,7 @@ export const useRecipeStore = create<RecipeState>((set) => ({
   selectedProtein: null,
   selectedCarb: null,
   selectedVeg: null,
-  setSuggestions: (recipes) => set({ suggestions }),
+  setSuggestions: (recipes) => set({ suggestions: recipes }),
   setSelectedRecipe: (recipe) => set({ selectedRecipe: recipe }),
   setSelectedProtein: (protein) => set({ selectedProtein: protein }),
   setSelectedCarb: (carb) => set({ selectedCarb: carb }),

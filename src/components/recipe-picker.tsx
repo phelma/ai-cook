@@ -77,6 +77,7 @@ export function RecipePicker() {
     setSelectedProtein,
     setSelectedCarb,
     setSelectedVeg,
+    setSuggestions,
   } = useRecipeStore()
 
   const proteins = ingredients.filter((ing) => ing.type === 'protein')
@@ -165,11 +166,26 @@ export function RecipePicker() {
       </div>
 
       {selectedProtein && selectedCarb && selectedVeg ? (
-        <RecipeSuggestions
-          protein={selectedProtein}
-          carb={selectedCarb}
-          veg={selectedVeg}
-        />
+        <div className="space-y-4">
+          <Button 
+            onClick={() => {
+              setSuggestions([]);
+              return <RecipeSuggestions
+                protein={selectedProtein}
+                carb={selectedCarb}
+                veg={selectedVeg}
+              />;
+            }}
+            className="w-full"
+          >
+            Generate Recipe Suggestions
+          </Button>
+          <RecipeSuggestions
+            protein={selectedProtein}
+            carb={selectedCarb}
+            veg={selectedVeg}
+          />
+        </div>
       ) : (
         <div className="text-stone-500">
           Select one ingredient from each category to generate recipe
