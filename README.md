@@ -18,19 +18,61 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## App Details
 
-## Learn More
+### Architecture
 
-To learn more about Next.js, take a look at the following resources:
+* Next JS v15
+  * app router
+  * server components
+  * server actions
+  * state management with mobx-state-tree
+* Tailwind
+* shadcn/ui
+* Databases (coming later)
+  * sqlite
+  * drizzle orm
+* Next js AI SDK
+* Anthropic API for LLMs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Recipe basics
+This is an app for quickly picking a healthy meal.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The meals are based on 3 food types, haivng one of each
 
-## Deploy on Vercel
+Protein
+e.g. pan fried salmon, grilled chicken, fried beef steak,
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Carbs
+e.g . rice, pasta, potatoes,
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Veggies
+e.g. broccoli, carrots, spinach,
+
+### Views
+
+#### Ingredient picker
+
+* User can set which ingredients they have available
+* Can add new ingredients
+* User can also specify other ingredients, e.g. salt, pepper
+* User can specify equipment
+* user can specify food allergies
+* user can specify diet preferences
+* user can specify units of measurement
+* user can specify how many people they are cooking for
+* user can specify ANY other requirements!!!!!!!
+
+#### Recipe picker
+
+* User picks 3 ingrediends
+* Once the three ingredients have been picked, several AI generated suggestions for meals using them are shown
+* User can pick a meal from the list to get the full recipe
+
+Coming Later
+
+* Slot machine style interface, with 3 spinning wheels, one for protein, one for carbs, one for veggies
+* When the user clicks spin, the wheels stop on a random selection
+* user is free to fix some of the selections and spin again
+* they can also nudge through the options
+* they are completely free to pick whatever they want, but the spinning makes it creative and fun
