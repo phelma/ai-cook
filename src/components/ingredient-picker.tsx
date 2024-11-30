@@ -27,6 +27,9 @@ export default function IngredientPicker() {
     ...defaultIngredients.carb.map(name => ({ name, type: 'carb' })),
     ...defaultIngredients.veg.map(name => ({ name, type: 'veg' }))
   ])
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
+    ingredients.map(ing => ing.name)
+  )
   const [newIngredient, setNewIngredient] = useState('')
   const [newIngredientType, setNewIngredientType] =
     useState<Ingredient['type']>('other')
@@ -61,7 +64,17 @@ export default function IngredientPicker() {
                 .filter((ing) => ing.type === type)
                 .map((ing) => (
                   <div key={ing.name} className="flex items-center space-x-2">
-                    <Checkbox id={ing.name} />
+                    <Checkbox 
+                      id={ing.name}
+                      checked={selectedIngredients.includes(ing.name)}
+                      onCheckedChange={(checked) => {
+                        setSelectedIngredients(
+                          checked
+                            ? [...selectedIngredients, ing.name]
+                            : selectedIngredients.filter((name) => name !== ing.name)
+                        )
+                      }}
+                    />
                     <Label htmlFor={ing.name}>{ing.name}</Label>
                   </div>
                 ))}
