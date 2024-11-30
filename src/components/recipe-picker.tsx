@@ -11,6 +11,7 @@ import {
   SelectValue,
 } from './ui/select'
 import { useChat } from 'ai/react'
+import { useEffect } from 'react'
 
 import { useCompletion } from 'ai/react'
 
@@ -29,18 +30,20 @@ function RecipeSuggestions({
 
   const setSuggestions = useRecipeStore((state) => state.setSuggestions)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const generateSuggestions = async () => {
-      const result = await complete(`Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, include the ingredient names in the meal name where appropriate.`)
+      const result = await complete(
+        `Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, include the ingredient names in the meal name where appropriate.`
+      )
       if (result) {
         const mealIdeas = result
           .split('\n')
-          .filter(line => line.trim())
-          .map(title => ({
+          .filter((line) => line.trim())
+          .map((title) => ({
             id: crypto.randomUUID(),
             title,
             ingredients: [],
-            instructions: []
+            instructions: [],
           }))
         setSuggestions(mealIdeas)
       }
@@ -162,14 +165,15 @@ export function RecipePicker() {
       </div>
 
       {selectedProtein && selectedCarb && selectedVeg ? (
-        <RecipeSuggestions 
-          protein={selectedProtein} 
-          carb={selectedCarb} 
-          veg={selectedVeg} 
+        <RecipeSuggestions
+          protein={selectedProtein}
+          carb={selectedCarb}
+          veg={selectedVeg}
         />
       ) : (
         <div className="text-stone-500">
-          Select one ingredient from each category to generate recipe suggestions.
+          Select one ingredient from each category to generate recipe
+          suggestions.
         </div>
       )}
     </div>
