@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { devtools } from 'zustand/middleware'
+import { devtools, subscribeWithSelector } from 'zustand/middleware'
 import defaultIngredients from '@/data/default-ingredients.json'
 
 type Ingredient = {
@@ -29,7 +29,8 @@ interface IngredientsState {
 }
 
 export const useIngredientsStore = create<IngredientsState>()(
-  devtools(
+  subscribeWithSelector(
+    devtools(
     (set) => ({
       ingredients: [
         ...defaultIngredients.protein.map((name) => ({
