@@ -12,7 +12,9 @@ import {
 } from './ui/select'
 import { useChat } from 'ai/react'
 
-function Chat({
+import { useCompletion } from 'ai/react'
+
+function RecipeSuggestions({
   protein,
   carb,
   veg,
@@ -21,26 +23,43 @@ function Chat({
   carb: string
   veg: string
 }) {
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    initialInput: `Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, include the ingredient names in the meal name where appropriate.`,
+  const { completion, complete } = useCompletion({
+    api: '/api/chat',
   })
-  return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.map((m) => (
-        <div key={m.id} className="whitespace-pre-wrap">
-          {m.role === 'user' ? 'User: ' : 'AI: '}
-          {m.content}
-        </div>
-      ))}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-        />
-      </form>
+  const setSuggestions = useRecipeStore((state) => state.setSuggestions)
+
+  React.useEffect(() => {
+    const generateSuggestions = async () => {
+      const result = await complete(`Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, include the ingredient names in the meal name where appropriate.`)
+      if (result) {
+        const mealIdeas = result
+          .split('\n')
+          .filter(line => line.trim())
+          .map(title => ({
+            id: crypto.randomUUID(),
+            title,
+            ingredients: [],
+            instructions: []
+          }))
+        setSuggestions(mealIdeas)
+      }
+    }
+    generateSuggestions()
+  }, [protein, carb, veg, complete, setSuggestions])
+
+  return (
+    <div className="space-y-4">
+      {suggestions.map((recipe) => (
+        <Button
+          key={recipe.id}
+          variant="outline"
+          className="w-full text-left h-auto py-4"
+          onClick={() => setSelectedRecipe(recipe)}
+        >
+          {recipe.title}
+        </Button>
+      ))}
     </div>
   )
 }
@@ -143,11 +162,14 @@ export function RecipePicker() {
       </div>
 
       {selectedProtein && selectedCarb && selectedVeg ? (
-        <Chat protein={selectedProtein} carb={selectedCarb} veg={selectedVeg} />
+        <RecipeSuggestions 
+          protein={selectedProtein} 
+          carb={selectedCarb} 
+          veg={selectedVeg} 
+        />
       ) : (
         <div className="text-stone-500">
-          Select one ingredient from each category to generate recipe
-          suggestions.
+          Select one ingredient from each category to generate recipe suggestions.
         </div>
       )}
     </div>
