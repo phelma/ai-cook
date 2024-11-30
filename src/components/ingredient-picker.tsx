@@ -23,12 +23,12 @@ type Ingredient = {
 
 export default function IngredientPicker() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([
-    ...defaultIngredients.protein.map(name => ({ name, type: 'protein' })),
-    ...defaultIngredients.carb.map(name => ({ name, type: 'carb' })),
-    ...defaultIngredients.veg.map(name => ({ name, type: 'veg' }))
+    ...defaultIngredients.protein.map((name) => ({ name, type: 'protein' })),
+    ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' })),
+    ...defaultIngredients.veg.map((name) => ({ name, type: 'veg' })),
   ])
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>(
-    ingredients.map(ing => ing.name)
+    ingredients.map((ing) => ing.name)
   )
   const [newIngredient, setNewIngredient] = useState('')
   const [newIngredientType, setNewIngredientType] =
@@ -64,14 +64,16 @@ export default function IngredientPicker() {
                 .filter((ing) => ing.type === type)
                 .map((ing) => (
                   <div key={ing.name} className="flex items-center space-x-2">
-                    <Checkbox 
+                    <Checkbox
                       id={ing.name}
                       checked={selectedIngredients.includes(ing.name)}
                       onCheckedChange={(checked) => {
                         setSelectedIngredients(
                           checked
                             ? [...selectedIngredients, ing.name]
-                            : selectedIngredients.filter((name) => name !== ing.name)
+                            : selectedIngredients.filter(
+                                (name) => name !== ing.name
+                              )
                         )
                       }}
                     />
