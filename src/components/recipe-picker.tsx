@@ -36,11 +36,16 @@ function RecipeSuggestions({
       >
         Generate Recipe Ideas
       </Button>
-      {generation && (
+      {/* {generation && (
         <div className="p-4 border rounded-lg bg-white shadow-sm">
           <p className="whitespace-pre-wrap">{generation}</p>
         </div>
-      )}
+      )} */}
+      <div className="flex flex-col gap-4 items-start">
+        {generation.split('\n').map((item) => (
+          <Button variant="secondary">{item}</Button>
+        ))}
+      </div>
     </div>
   )
 }
@@ -64,7 +69,7 @@ export function RecipePicker() {
   const veggies = ingredients.filter((ing) => ing.type === 'veg')
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 container">
       <div className="grid grid-cols-3 gap-4">
         <div>
           <h2 className="text-lg font-medium mb-2">Protein</h2>
