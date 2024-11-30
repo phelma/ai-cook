@@ -3,21 +3,73 @@
 import { useIngredientsStore } from "@/store/use-ingredients-store"
 import { useRecipeStore } from "@/store/use-recipe-store"
 import { Button } from "./ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 
 export function RecipePicker() {
-  const selectedIngredients = useIngredientsStore((state) => state.selectedIngredients)
-  const { suggestions, selectedRecipe } = useRecipeStore()
+  const ingredients = useIngredientsStore((state) => state.ingredients)
+  const { 
+    suggestions, 
+    selectedProtein, 
+    selectedCarb, 
+    selectedVeg,
+    setSelectedProtein,
+    setSelectedCarb,
+    setSelectedVeg
+  } = useRecipeStore()
+
+  const proteins = ingredients.filter(ing => ing.type === 'protein')
+  const carbs = ingredients.filter(ing => ing.type === 'carb')
+  const veggies = ingredients.filter(ing => ing.type === 'veg')
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold">Selected Ingredients</h2>
-        <div className="mt-2 space-y-2">
-          {selectedIngredients.map((ingredient) => (
-            <div key={ingredient} className="p-2 bg-stone-100 rounded">
-              {ingredient}
-            </div>
-          ))}
+      <div className="grid grid-cols-3 gap-4">
+        <div>
+          <h2 className="text-lg font-medium mb-2">Protein</h2>
+          <Select value={selectedProtein || undefined} onValueChange={setSelectedProtein}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select protein" />
+            </SelectTrigger>
+            <SelectContent>
+              {proteins.map((protein) => (
+                <SelectItem key={protein.name} value={protein.name}>
+                  {protein.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-medium mb-2">Carbs</h2>
+          <Select value={selectedCarb || undefined} onValueChange={setSelectedCarb}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select carbs" />
+            </SelectTrigger>
+            <SelectContent>
+              {carbs.map((carb) => (
+                <SelectItem key={carb.name} value={carb.name}>
+                  {carb.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <h2 className="text-lg font-medium mb-2">Vegetables</h2>
+          <Select value={selectedVeg || undefined} onValueChange={setSelectedVeg}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select vegetable" />
+            </SelectTrigger>
+            <SelectContent>
+              {veggies.map((veg) => (
+                <SelectItem key={veg.name} value={veg.name}>
+                  {veg.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 
