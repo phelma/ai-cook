@@ -26,16 +26,21 @@ function RecipeSuggestions({
   // const { suggestions, setSuggestions, setSelectedRecipe } = useRecipeStore()
 
   return (
-    <div>
-      <button
+    <div className="space-y-4">
+      <Button
+        className="w-full"
         onClick={async () => {
           const { text } = await getMealIdeas({ protein, carb, veg })
           setGeneration(text)
         }}
       >
-        Answer
-      </button>
-      <div>{generation}</div>
+        Generate Recipe Ideas
+      </Button>
+      {generation && (
+        <div className="p-4 border rounded-lg bg-white shadow-sm">
+          <p className="whitespace-pre-wrap">{generation}</p>
+        </div>
+      )}
     </div>
   )
 }
