@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 import defaultIngredients from '@/data/default-ingredients.json'
 
 type Ingredient = {
@@ -27,7 +28,9 @@ interface IngredientsState {
   setAdditionalRequirements: (text: string) => void
 }
 
-export const useIngredientsStore = create<IngredientsState>((set) => ({
+export const useIngredientsStore = create<IngredientsState>()(
+  devtools(
+    (set) => ({
   ingredients: [
     ...defaultIngredients.protein.map((name) => ({ name, type: 'protein' })),
     ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' })),
@@ -77,4 +80,10 @@ export const useIngredientsStore = create<IngredientsState>((set) => ({
   setServings: (servings) => set({ servings }),
   setUnits: (units) => set({ units }),
   setAdditionalRequirements: (text) => set({ additionalRequirements: text }),
-}))
+}), 
+    {
+      name: 'Ingredients Store',
+      enabled: true
+    }
+  )
+)
