@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
@@ -13,7 +13,7 @@ import {
 } from './ui/select'
 import { getMealIdeas, getRecipe } from '@/app/actions'
 
-function RecipeSuggestions({
+export function RecipeSuggestions({
   protein,
   carb,
   veg,
@@ -22,10 +22,34 @@ function RecipeSuggestions({
   carb: string
   veg: string
 }) {
-  const { generatedMeals, selectedMeal, recipeText, setGeneratedMeals, setSelectedMeal, setRecipeText } = useRecipeStore()
+  const {
+    generatedMeals,
+    selectedMeal,
+    recipeText,
+    setGeneratedMeals,
+    setSelectedMeal,
+    setRecipeText,
+    suggestions,
+  } = useRecipeStore()
 
   return (
     <div className="space-y-4">
+      <h2 className="text-2xl font-bold">Recipe Suggestions</h2>
+      <div className="mt-2">
+        {suggestions.length === 0 ? (
+          <div className="text-stone-500">
+            No recipes generated yet. Click generate to get AI suggestions.
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {suggestions.map((recipe) => (
+              <div key={recipe.id} className="p-4 border rounded">
+                <h3 className="text-xl font-semibold">{recipe.title}</h3>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
       <Button
         className="w-full"
         onClick={async () => {
@@ -74,8 +98,7 @@ function RecipeSuggestions({
   )
 }
 
-export function RecipePicker() {
-  const [showSuggestions, setShowSuggestions] = React.useState(false)
+export function RecipePicker({ onComplete }) {
   const ingredients = useIngredientsStore((state) => state.ingredients)
   const {
     suggestions,
@@ -85,7 +108,6 @@ export function RecipePicker() {
     setSelectedProtein,
     setSelectedCarb,
     setSelectedVeg,
-    setSuggestions,
   } = useRecipeStore()
 
   const proteins = ingredients.filter((ing) => ing.type === 'protein')
@@ -153,32 +175,8 @@ export function RecipePicker() {
         </div>
       </div>
 
-      <div>
-        <h2 className="text-2xl font-bold">Recipe Suggestions</h2>
-        <div className="mt-2">
-          {suggestions.length === 0 ? (
-            <div className="text-stone-500">
-              No recipes generated yet. Click generate to get AI suggestions.
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {suggestions.map((recipe) => (
-                <div key={recipe.id} className="p-4 border rounded">
-                  <h3 className="text-xl font-semibold">{recipe.title}</h3>
-                  {/* Add more recipe details here */}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-
       {selectedProtein && selectedCarb && selectedVeg ? (
-        <RecipeSuggestions
-          protein={selectedProtein}
-          carb={selectedCarb}
-          veg={selectedVeg}
-        />
+        <Button onClick={onComplete}>Pick a meal</Button>
       ) : (
         <div className="text-stone-500">
           Select one ingredient from each category to generate recipe
