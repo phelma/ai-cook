@@ -33,8 +33,8 @@ export async function getRecipe({
   carb: string
   veg: string
 }) {
-  const prompt = RECIPE_PROMPT(mealName, protein, carb, veg)
-  
+  const prompt = RECIPE_PROMPT({ mealName, protein, carb, veg })
+
   const { text, finishReason, usage } = await generateText({
     model: anthropic('claude-3-5-haiku-latest'),
     prompt,

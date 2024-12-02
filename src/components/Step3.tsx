@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useRecipeStore } from '@/store/use-recipe-store'
 import { getRecipe } from '@/app/actions'
+import { useRecipeStore } from '@/store/use-recipe-store'
+import { useEffect, useState } from 'react'
 
-export default function Step3({ next }) {
+export default function Step3({ onComplete }) {
   const [isLoading, setIsLoading] = useState(false)
   const {
     selectedMeal,
@@ -47,25 +47,6 @@ export default function Step3({ next }) {
 
   return (
     <>
-      {generatedMeals && (
-        <div className="flex flex-col gap-4 items-start">
-          {generatedMeals
-            .split('\n')
-            .filter(Boolean)
-            .map((item) => (
-              <Button
-                key={item}
-                variant={selectedMeal === item ? 'default' : 'secondary'}
-                onClick={async () => {
-                  setSelectedMeal(item)
-                  onComplete()
-                }}
-              >
-                {item}
-              </Button>
-            ))}
-        </div>
-      )}
       {selectedMeal && recipeText && (
         <div className="p-6 border rounded-lg bg-white shadow-sm">
           <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
