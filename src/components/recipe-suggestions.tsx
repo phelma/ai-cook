@@ -5,7 +5,7 @@ import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
 import { getMealIdeas, getRecipe } from '@/app/actions'
 
-export function RecipeSuggestions() {
+export function RecipeSuggestions({ onComplete }) {
   const {
     generatedMeals,
     selectedMeal,
@@ -40,10 +40,10 @@ export function RecipeSuggestions() {
       <Button
         className="w-full"
         onClick={async () => {
-          const { text } = await getMealIdeas({ 
-            protein: selectedProtein!, 
-            carb: selectedCarb!, 
-            veg: selectedVeg! 
+          const { text } = await getMealIdeas({
+            protein: selectedProtein!,
+            carb: selectedCarb!,
+            veg: selectedVeg!,
           })
           setGeneratedMeals(text)
           setSelectedMeal(null)
@@ -64,25 +64,12 @@ export function RecipeSuggestions() {
                 variant={selectedMeal === item ? 'default' : 'secondary'}
                 onClick={async () => {
                   setSelectedMeal(item)
-                  const { text } = await getRecipe({
-                    mealName: item,
-                    protein: selectedProtein!,
-                    carb: selectedCarb!,
-                    veg: selectedVeg!,
-                  })
-                  setRecipeText(text)
+                  onComplete()
                 }}
               >
                 {item}
               </Button>
             ))}
-        </div>
-      )}
-
-      {recipeText && (
-        <div className="p-6 border rounded-lg bg-white shadow-sm">
-          <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
-          <div className="whitespace-pre-wrap">{recipeText}</div>
         </div>
       )}
     </div>
