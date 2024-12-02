@@ -59,8 +59,10 @@ export async function getRecipe({
     additionalRequirements,
   })
 
+  console.log('Prompt:', prompt)
+
   const { text, finishReason, usage } = await generateText({
-    model: anthropic('claude-3-5-haiku-latest'),
+    model: anthropic('claude-3-5-sonnet-latest'),
     prompt,
   })
 

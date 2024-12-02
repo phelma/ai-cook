@@ -55,7 +55,9 @@ export function RecipeSuggestions({ onComplete }) {
       {selectedProtein && selectedCarb && selectedVeg && (
         <div className="flex gap-2 items-center text-sm text-gray-600 mt-2">
           <span className="font-medium">Selected ingredients:</span>
-          <span className="px-2 py-1 bg-stone-100 rounded">{selectedProtein}</span>
+          <span className="px-2 py-1 bg-stone-100 rounded">
+            {selectedProtein}
+          </span>
           <span className="px-2 py-1 bg-stone-100 rounded">{selectedCarb}</span>
           <span className="px-2 py-1 bg-stone-100 rounded">{selectedVeg}</span>
         </div>
@@ -64,16 +66,6 @@ export function RecipeSuggestions({ onComplete }) {
         {isLoading ? (
           <div className="flex justify-center items-center min-h-[200px]">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-          </div>
-        ) : suggestions.length === 0 ? (
-          <div className="text-center py-4">
-            <p>No recipes generated yet. Click generate to get AI suggestions.</p>
-            <Button 
-              className="mt-4"
-              onClick={() => generateMeals()}
-            >
-              Generate Recipe Ideas
-            </Button>
           </div>
         ) : (
           <div className="space-y-4">
