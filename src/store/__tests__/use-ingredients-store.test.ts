@@ -10,7 +10,7 @@ describe('useIngredientsStore', () => {
         { name: 'Test Carb', type: 'carb' },
         { name: 'Test Veg', type: 'veg' }
       ],
-      selectedIngredients: [],
+      selectedIngredients: ['Test Protein'],
       equipment: [],
       allergies: [],
       dietPreferences: [],

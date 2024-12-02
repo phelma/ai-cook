@@ -66,7 +66,7 @@ export default function Step3({ next }) {
             ))}
         </div>
       )}
-      {recipeText && (
+      {selectedMeal && recipeText && (
         <div className="p-6 border rounded-lg bg-white shadow-sm">
           <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
           <div className="whitespace-pre-wrap">{recipeText}</div>
