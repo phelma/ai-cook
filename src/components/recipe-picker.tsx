@@ -90,9 +90,7 @@ export function RecipePicker({ onComplete }) {
         </div>
       </div>
 
-      {selectedProtein && selectedCarb && selectedVeg && (
-        <RecipeSuggestions />
-      ) : (
+      {selectedProtein && selectedCarb && selectedVeg ? null : (
         <div className="text-stone-500">
           Select one ingredient from each category to generate recipe
           suggestions.
