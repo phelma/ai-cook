@@ -29,19 +29,15 @@ interface IngredientsState {
   setAdditionalRequirements: (text: string) => void
 }
 
-export const useIngredientsStore = create<IngredientsState>()(
-  subscribeWithSelector(
-    devtools(
-      persist(
-        (set) => ({
-          ingredients: [
-            ...defaultIngredients.protein.map((name) => ({
-              name,
-              type: 'protein',
-            })),
-            ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' })),
-            ...defaultIngredients.veg.map((name) => ({ name, type: 'veg' })),
-          ],
+export const useIngredientsStore = create<IngredientsState>()((set) => ({
+  ingredients: [
+    ...defaultIngredients.protein.map((name) => ({
+      name,
+      type: 'protein',
+    })),
+    ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' })),
+    ...defaultIngredients.veg.map((name) => ({ name, type: 'veg' })),
+  ],
           selectedIngredients: [
             ...defaultIngredients.protein,
             ...defaultIngredients.carb,

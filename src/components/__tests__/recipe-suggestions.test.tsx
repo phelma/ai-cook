@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render } from '../../test/test-utils'
-import { RecipeSuggestions } from '../recipe-picker'
+import { RecipeSuggestions } from '../recipe-suggestions'
 import { useRecipeStore } from '../../store/use-recipe-store'
 
 // Mock the store
@@ -39,7 +39,7 @@ describe('RecipeSuggestions', () => {
     const { getByText } = render(
       <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
     )
-    expect(getByText('Recipe Suggestions')).toBeDefined()
+    expect(getByText('Recipe suggestions')).toBeDefined()
   })
 
   it('shows empty state message when no suggestions', () => {
