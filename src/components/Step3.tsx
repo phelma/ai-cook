@@ -47,31 +47,29 @@ export default function Step3({ next }) {
 
   return (
     <>
+      {generatedMeals && (
+        <div className="flex flex-col gap-4 items-start">
+          {generatedMeals
+            .split('\n')
+            .filter(Boolean)
+            .map((item) => (
+              <Button
+                key={item}
+                variant={selectedMeal === item ? 'default' : 'secondary'}
+                onClick={async () => {
+                  setSelectedMeal(item)
+                  onComplete()
+                }}
+              >
+                {item}
+              </Button>
+            ))}
+        </div>
+      )}
       {recipeText && (
-        <div className="space-y-4">
-          {generatedMeals && (
-            <div className="flex flex-col gap-4 items-start">
-              {generatedMeals
-                .split('\n')
-                .filter(Boolean)
-                .map((item) => (
-                  <Button
-                    key={item}
-                    variant={selectedMeal === item ? 'default' : 'secondary'}
-                    onClick={async () => {
-                      setSelectedMeal(item)
-                      onComplete()
-                    }}
-                  >
-                    {item}
-                  </Button>
-                ))}
-            </div>
-          )}
-          <div className="p-6 border rounded-lg bg-white shadow-sm">
-            <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
-            <div className="whitespace-pre-wrap">{recipeText}</div>
-          </div>
+        <div className="p-6 border rounded-lg bg-white shadow-sm">
+          <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
+          <div className="whitespace-pre-wrap">{recipeText}</div>
         </div>
       )}
     </>
