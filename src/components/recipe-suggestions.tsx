@@ -55,7 +55,7 @@ export function RecipeSuggestions({ onComplete }: { onComplete: () => void }) {
       {selectedProtein && selectedCarb && selectedVeg && (
         <div className="flex gap-2 items-center text-sm text-gray-600 mt-2">
           <span className="font-medium">Selected ingredients:</span>
-          <span className="px-2 py-1 bg-stone-100 rounded">
+          <span className="px-3 py-1.5 bg-stone-100 dark:bg-stone-800 rounded-full font-medium shadow-sm">
             {selectedProtein}
           </span>
           <span className="px-2 py-1 bg-stone-100 rounded">{selectedCarb}</span>
@@ -87,6 +87,9 @@ export function RecipeSuggestions({ onComplete }: { onComplete: () => void }) {
               <Button
                 key={item}
                 variant={selectedMeal === item ? 'default' : 'secondary'}
+                className={`w-full text-left justify-start hover:translate-x-1 transition-transform ${
+                  selectedMeal === item ? 'shadow-md' : ''
+                }`}
                 onClick={async () => {
                   setSelectedMeal(item)
                   onComplete()

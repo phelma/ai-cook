@@ -38,7 +38,7 @@ export default function Wizard() {
   const CurrentStepComponent = steps[currentStep - 1].component
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-3xl mx-auto shadow-xl border-stone-200/50 backdrop-blur-sm bg-white/80 dark:bg-stone-950/80">
       <CardHeader>
         <CardTitle className="text-2xl font-bold text-center mb-4">
           {steps[currentStep - 1].title}

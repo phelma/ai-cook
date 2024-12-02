@@ -27,8 +27,8 @@ export function RecipePicker({ onComplete }: { onComplete: () => void }) {
   const veg = ingredients.filter((ing) => ing.type === 'veg')
 
   return (
-    <div className="space-y-6 container">
-      <div className="grid grid-cols-3 gap-4">
+    <div className="space-y-8 container">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <h2 className="text-lg font-medium mb-2">Protein</h2>
           <Select
