@@ -58,7 +58,15 @@ export function RecipeSuggestions({ onComplete }) {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
           </div>
         ) : suggestions.length === 0 ? (
-          <></>
+          <div className="text-center py-4">
+            <p>No recipes generated yet. Click generate to get AI suggestions.</p>
+            <Button 
+              className="mt-4"
+              onClick={() => generateMeals()}
+            >
+              Generate Recipe Ideas
+            </Button>
+          </div>
         ) : (
           <div className="space-y-4">
             {suggestions.map((recipe) => (
