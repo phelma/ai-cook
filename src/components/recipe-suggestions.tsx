@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
-import { getMealIdeas, getRecipe } from '@/app/actions'
+import { getMealIdeas } from '@/app/actions'
 
 export function RecipeSuggestions({ onComplete }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +23,7 @@ export function RecipeSuggestions({ onComplete }) {
   useEffect(() => {
     async function generateMeals() {
       if (!selectedProtein || !selectedCarb || !selectedVeg) return
-      
+
       setIsLoading(true)
       try {
         const { text } = await getMealIdeas({
@@ -40,7 +40,14 @@ export function RecipeSuggestions({ onComplete }) {
     }
 
     generateMeals()
-  }, [selectedProtein, selectedCarb, selectedVeg, setGeneratedMeals, setSelectedMeal, setRecipeText])
+  }, [
+    selectedProtein,
+    selectedCarb,
+    selectedVeg,
+    setGeneratedMeals,
+    setSelectedMeal,
+    setRecipeText,
+  ])
 
   return (
     <div className="space-y-4">
@@ -51,12 +58,7 @@ export function RecipeSuggestions({ onComplete }) {
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
           </div>
         ) : suggestions.length === 0 ? (
-          <>
-            <div className="text-stone-500">
-              No recipes generated yet. Click generate to get AI suggestions.
-            </div>
-            <Button onClick={() => generateMeals()}>Generate Recipe Ideas</Button>
-          </>
+          <></>
         ) : (
           <div className="space-y-4">
             {suggestions.map((recipe) => (
