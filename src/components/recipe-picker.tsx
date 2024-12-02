@@ -22,6 +22,9 @@ export function RecipeSuggestions() {
     setSelectedMeal,
     setRecipeText,
     suggestions,
+    selectedProtein,
+    selectedCarb,
+    selectedVeg,
   } = useRecipeStore()
 
   return (
