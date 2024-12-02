@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { getRecipe } from '@/app/actions'
 
 export default function Step3({ next }) {
+  const [isLoading, setIsLoading] = useState(false)
   const {
     selectedMeal,
     selectedProtein,
@@ -19,17 +20,30 @@ export default function Step3({ next }) {
       if (!selectedMeal || !selectedProtein || !selectedCarb || !selectedVeg)
         return
 
-      const { text } = await getRecipe({
-        mealName: selectedMeal,
-        protein: selectedProtein,
-        carb: selectedCarb,
-        veg: selectedVeg,
-      })
-      setRecipeText(text)
+      setIsLoading(true)
+      try {
+        const { text } = await getRecipe({
+          mealName: selectedMeal,
+          protein: selectedProtein,
+          carb: selectedCarb,
+          veg: selectedVeg,
+        })
+        setRecipeText(text)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     fetchRecipe()
   }, [selectedMeal, selectedProtein, selectedCarb, selectedVeg, setRecipeText])
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[200px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
 
   return (
     <>
