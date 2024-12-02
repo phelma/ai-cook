@@ -22,7 +22,7 @@ export default function Step3({ onComplete }) {
     allergies,
     dietPreferences,
     servings,
-    units,
+    locale,
     additionalRequirements,
   } = useIngredientsStore()
 
@@ -42,7 +42,7 @@ export default function Step3({ onComplete }) {
           allergies,
           dietPreferences,
           servings,
-          units,
+          locale,
           additionalRequirements,
         })
         setRecipeText(text)

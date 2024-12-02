@@ -15,7 +15,7 @@ interface IngredientsState {
   allergies: string[]
   dietPreferences: string[]
   servings: number
-  units: 'UK' | 'US'
+  locale: 'UK' | 'US'
   additionalRequirements: string
 
   // Actions
@@ -25,7 +25,7 @@ interface IngredientsState {
   toggleAllergy: (item: string) => void
   toggleDietPreference: (item: string) => void
   setServings: (servings: number) => void
-  setUnits: (units: 'metric' | 'imperial') => void
+  setLocale: (locale: 'UK' | 'US') => void
   setAdditionalRequirements: (text: string) => void
 }
 
@@ -38,15 +38,21 @@ export const useIngredientsStore = create<IngredientsState>()(
             name,
             type: 'protein' as const,
           })),
-          ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' as const })),
-          ...defaultIngredients.veg.map((name) => ({ name, type: 'veg' as const })),
+          ...defaultIngredients.carb.map((name) => ({
+            name,
+            type: 'carb' as const,
+          })),
+          ...defaultIngredients.veg.map((name) => ({
+            name,
+            type: 'veg' as const,
+          })),
         ] as Ingredient[],
         selectedIngredients: [],
         equipment: [],
         allergies: [],
         dietPreferences: [],
         servings: 4,
-        units: 'UK',
+        locale: 'UK',
         additionalRequirements: '',
 
         addIngredient: (name, type) =>
@@ -84,12 +90,12 @@ export const useIngredientsStore = create<IngredientsState>()(
           })),
 
         setServings: (servings) => set({ servings }),
-        setUnits: (units) => set({ units }),
+        setLocale: (locale) => set({ locale }),
         setAdditionalRequirements: (text) =>
           set({ additionalRequirements: text }),
       }),
       {
-        name: "ingredients-storage",
+        name: 'ingredients-storage',
         storage: createJSONStorage(() => localStorage),
       }
     )

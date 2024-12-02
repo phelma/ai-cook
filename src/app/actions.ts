@@ -32,7 +32,7 @@ export async function getRecipe({
   allergies,
   dietPreferences,
   servings,
-  units,
+  locale,
   additionalRequirements,
 }: {
   mealName: string
@@ -43,7 +43,7 @@ export async function getRecipe({
   allergies: string[]
   dietPreferences: string[]
   servings: number
-  units: 'UK' | 'US'
+  locale: 'UK' | 'US'
   additionalRequirements: string
 }) {
   const prompt = RECIPE_PROMPT({
@@ -55,7 +55,7 @@ export async function getRecipe({
     allergies,
     dietPreferences,
     servings,
-    units,
+    locale,
     additionalRequirements,
   })
 

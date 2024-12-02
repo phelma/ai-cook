@@ -29,7 +29,7 @@ export default function IngredientPicker() {
     allergies,
     dietPreferences,
     servings,
-    units,
+    locale,
     additionalRequirements,
     addIngredient: addIngredientToStore,
     toggleIngredientSelection,
@@ -37,7 +37,7 @@ export default function IngredientPicker() {
     toggleAllergy,
     toggleDietPreference,
     setServings,
-    setUnits,
+    setLocale,
     setAdditionalRequirements,
   } = useIngredientsStore()
 
@@ -195,7 +195,7 @@ export default function IngredientPicker() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="units">Units of Measurement</Label>
-            <Select value={units} onValueChange={setUnits}>
+            <Select value={locale} onValueChange={setLocale}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue placeholder="Select units" />
               </SelectTrigger>

@@ -22,7 +22,7 @@ describe('RecipePicker', () => {
     allergies: [],
     dietPreferences: [],
     servings: 4,
-    units: 'UK' as const,
+    locale: 'UK' as const,
     additionalRequirements: '',
     addIngredient: vi.fn(),
     toggleIngredientSelection: vi.fn(),
@@ -30,7 +30,7 @@ describe('RecipePicker', () => {
     toggleAllergy: vi.fn(),
     toggleDietPreference: vi.fn(),
     setServings: vi.fn(),
-    setUnits: vi.fn(),
+    setLocale: vi.fn(),
     setAdditionalRequirements: vi.fn(),
   }
 

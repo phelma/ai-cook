@@ -34,6 +34,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
   * drizzle orm
 * Next js AI SDK
 * Anthropic API for LLMs
+* Write tests where appropriate
 
 ### Recipe basics
 This is an app for quickly picking a healthy meal.
@@ -59,7 +60,7 @@ e.g. broccoli, carrots, spinach,
 * User can specify equipment
 * user can specify food allergies
 * user can specify diet preferences
-* user can specify units of measurement
+* user can specify locale for units of measurement
 * user can specify how many people they are cooking for
 * user can specify ANY other requirements!!!!!!!
 
