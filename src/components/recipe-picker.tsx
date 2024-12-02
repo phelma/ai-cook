@@ -13,15 +13,7 @@ import {
 } from './ui/select'
 import { getMealIdeas, getRecipe } from '@/app/actions'
 
-export function RecipeSuggestions({
-  protein,
-  carb,
-  veg,
-}: {
-  protein: string
-  carb: string
-  veg: string
-}) {
+export function RecipeSuggestions() {
   const {
     generatedMeals,
     selectedMeal,
@@ -53,7 +45,11 @@ export function RecipeSuggestions({
       <Button
         className="w-full"
         onClick={async () => {
-          const { text } = await getMealIdeas({ protein, carb, veg })
+          const { text } = await getMealIdeas({ 
+            protein: selectedProtein!, 
+            carb: selectedCarb!, 
+            veg: selectedVeg! 
+          })
           setGeneratedMeals(text)
           setSelectedMeal(null)
           setRecipeText(null)
@@ -75,9 +71,9 @@ export function RecipeSuggestions({
                   setSelectedMeal(item)
                   const { text } = await getRecipe({
                     mealName: item,
-                    protein,
-                    carb,
-                    veg,
+                    protein: selectedProtein!,
+                    carb: selectedCarb!,
+                    veg: selectedVeg!,
                   })
                   setRecipeText(text)
                 }}
@@ -175,8 +171,8 @@ export function RecipePicker({ onComplete }) {
         </div>
       </div>
 
-      {selectedProtein && selectedCarb && selectedVeg ? (
-        <Button onClick={onComplete}>Pick a meal</Button>
+      {selectedProtein && selectedCarb && selectedVeg && (
+        <RecipeSuggestions />
       ) : (
         <div className="text-stone-500">
           Select one ingredient from each category to generate recipe
