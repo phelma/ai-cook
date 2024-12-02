@@ -4,6 +4,7 @@ import { getRecipe } from '@/app/actions'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 export default function Step3({ onComplete }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -66,7 +67,9 @@ export default function Step3({ onComplete }) {
       {selectedMeal && recipeText && (
         <div className="p-6 border rounded-lg bg-white shadow-sm">
           <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
-          <div className="whitespace-pre-wrap">{recipeText}</div>
+          <ReactMarkdown className="prose prose-stone max-w-none">
+            {recipeText}
+          </ReactMarkdown>
         </div>
       )}
     </>
