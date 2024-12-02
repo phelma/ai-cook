@@ -102,9 +102,4 @@ export const useIngredientsStore = create<IngredientsState>()(
 )
 
 // Subscribe to all state changes
-useIngredientsStore.subscribe(
-  (state) => state,
-  (state) => {
-    console.log('Store updated:', state)
-  }
-)
+useIngredientsStore.subscribe((state) => state)
