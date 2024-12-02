@@ -52,6 +52,14 @@ export function RecipeSuggestions({ onComplete }) {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold">Recipe suggestions</h2>
+      {selectedProtein && selectedCarb && selectedVeg && (
+        <div className="flex gap-2 items-center text-sm text-gray-600 mt-2">
+          <span className="font-medium">Selected ingredients:</span>
+          <span className="px-2 py-1 bg-stone-100 rounded">{selectedProtein}</span>
+          <span className="px-2 py-1 bg-stone-100 rounded">{selectedCarb}</span>
+          <span className="px-2 py-1 bg-stone-100 rounded">{selectedVeg}</span>
+        </div>
+      )}
       <div className="mt-2">
         {isLoading ? (
           <div className="flex justify-center items-center min-h-[200px]">
