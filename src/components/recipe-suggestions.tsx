@@ -87,6 +87,11 @@ export function RecipeSuggestions({ onComplete }) {
             ))}
         </div>
       )}
+      {selectedMeal && recipeText && (
+        <div className="mt-4 p-4 border rounded">
+          <div className="whitespace-pre-wrap">{recipeText}</div>
+        </div>
+      )}
     </div>
   )
 }
