@@ -10,13 +10,15 @@ export default function Step3({ next }) {
     selectedProtein,
     selectedCarb,
     selectedVeg,
-    setRecipeText
+    setRecipeText,
+    recipeText,
   } = useRecipeStore()
 
   useEffect(() => {
     async function fetchRecipe() {
-      if (!selectedMeal || !selectedProtein || !selectedCarb || !selectedVeg) return
-      
+      if (!selectedMeal || !selectedProtein || !selectedCarb || !selectedVeg)
+        return
+
       const { text } = await getRecipe({
         mealName: selectedMeal,
         protein: selectedProtein,
@@ -25,9 +27,18 @@ export default function Step3({ next }) {
       })
       setRecipeText(text)
     }
-    
+
     fetchRecipe()
   }, [selectedMeal, selectedProtein, selectedCarb, selectedVeg, setRecipeText])
 
-  return <h1>Step 3</h1>
+  return (
+    <>
+      {recipeText && (
+        <div className="p-6 border rounded-lg bg-white shadow-sm">
+          <h3 className="text-xl font-semibold mb-4">{selectedMeal}</h3>
+          <div className="whitespace-pre-wrap">{recipeText}</div>
+        </div>
+      )}
+    </>
+  )
 }
