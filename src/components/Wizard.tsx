@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -9,19 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import Timeline from './Timeline'
+import { useState } from 'react'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
+import Timeline from './Timeline'
 
 export default function Wizard() {
   const [currentStep, setCurrentStep] = useState(1)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    plan: '',
-    agreeToTerms: false,
-  })
 
   const steps = [
     { title: 'Pick Ingredients', component: Step1 },
@@ -39,11 +33,6 @@ export default function Wizard() {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }
-  }
-
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData)
-    // Here you would typically send the data to your backend
   }
 
   const CurrentStepComponent = steps[currentStep - 1].component

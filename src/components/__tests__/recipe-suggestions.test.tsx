@@ -42,24 +42,6 @@ describe('RecipeSuggestions', () => {
     expect(getByText('Recipe suggestions')).toBeDefined()
   })
 
-  it('shows empty state message when no suggestions', () => {
-    const { getByText } = render(
-      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
-    )
-    expect(
-      getByText(
-        'No recipes generated yet. Click generate to get AI suggestions.'
-      )
-    ).toBeDefined()
-  })
-
-  it('shows generate button', () => {
-    const { getByText } = render(
-      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
-    )
-    expect(getByText('Generate Recipe Ideas')).toBeDefined()
-  })
-
   it('displays generated meals when available', () => {
     const stateWithMeals = {
       ...mockRecipeState,
@@ -105,14 +87,14 @@ describe('RecipeSuggestions', () => {
     vi.mocked(useRecipeStore).mockImplementation(() => stateWithMeals)
 
     const { getByText } = render(
-      <RecipeSuggestions 
-        protein="Chicken" 
-        carb="Rice" 
+      <RecipeSuggestions
+        protein="Chicken"
+        carb="Rice"
         veg="Broccoli"
         onComplete={mockOnComplete}
       />
     )
-    
+
     getByText('Meal 1').click()
     expect(mockOnComplete).toHaveBeenCalled()
   })

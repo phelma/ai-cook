@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
@@ -11,12 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select'
-import { RecipeSuggestions } from './recipe-suggestions'
 
 export function RecipePicker({ onComplete }) {
   const ingredients = useIngredientsStore((state) => state.ingredients)
   const {
-    suggestions,
     selectedProtein,
     selectedCarb,
     selectedVeg,

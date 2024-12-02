@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { useIngredientsStore } from '../use-ingredients-store'
-import defaultIngredients from '@/data/default-ingredients.json'
 
 describe('useIngredientsStore', () => {
   beforeEach(() => {

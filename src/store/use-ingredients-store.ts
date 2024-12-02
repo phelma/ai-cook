@@ -1,7 +1,6 @@
-import { create } from 'zustand'
-import { devtools, subscribeWithSelector } from 'zustand/middleware'
-import { persist, createJSONStorage } from 'zustand/middleware'
 import defaultIngredients from '@/data/default-ingredients.json'
+import { create } from 'zustand'
+import { createJSONStorage, devtools, persist } from 'zustand/middleware'
 
 type Ingredient = {
   name: string

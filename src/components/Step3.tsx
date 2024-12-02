@@ -1,12 +1,12 @@
 'use client'
 
 import { getRecipe } from '@/app/actions'
-import { useRecipeStore } from '@/store/use-recipe-store'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
+import { useRecipeStore } from '@/store/use-recipe-store'
 import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 
-export default function Step3({ onComplete }) {
+export default function Step3({}) {
   const [isLoading, setIsLoading] = useState(false)
   const {
     selectedMeal,
@@ -52,7 +52,19 @@ export default function Step3({ onComplete }) {
     }
 
     fetchRecipe()
-  }, [selectedMeal, selectedProtein, selectedCarb, selectedVeg, setRecipeText])
+  }, [
+    selectedMeal,
+    selectedProtein,
+    selectedCarb,
+    selectedVeg,
+    setRecipeText,
+    equipment,
+    allergies,
+    dietPreferences,
+    servings,
+    locale,
+    additionalRequirements,
+  ])
 
   if (isLoading) {
     return (

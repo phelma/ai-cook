@@ -1,9 +1,8 @@
 'use server'
 
-import { generateText } from 'ai'
 import { anthropic } from '@ai-sdk/anthropic'
+import { generateText } from 'ai'
 import { MEAL_IDEAS_PROMPT, RECIPE_PROMPT } from '../prompts'
-import { useIngredientsStore } from '../store/use-ingredients-store'
 
 export async function getMealIdeas({
   protein,
