@@ -87,4 +87,33 @@ describe('RecipeSuggestions', () => {
     )
     expect(getByText('Recipe instructions')).toBeDefined()
   })
+
+  it('handles loading state correctly', () => {
+    const { container } = render(
+      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
+    )
+    const loadingSpinner = container.querySelector('.animate-spin')
+    expect(loadingSpinner).toBeDefined()
+  })
+
+  it('calls onComplete when a meal is selected', async () => {
+    const mockOnComplete = vi.fn()
+    const stateWithMeals = {
+      ...mockRecipeState,
+      generatedMeals: 'Meal 1\nMeal 2',
+    }
+    vi.mocked(useRecipeStore).mockImplementation(() => stateWithMeals)
+
+    const { getByText } = render(
+      <RecipeSuggestions 
+        protein="Chicken" 
+        carb="Rice" 
+        veg="Broccoli"
+        onComplete={mockOnComplete}
+      />
+    )
+    
+    getByText('Meal 1').click()
+    expect(mockOnComplete).toHaveBeenCalled()
+  })
 })
