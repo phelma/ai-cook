@@ -24,7 +24,7 @@ export function RecipePicker({ onComplete }) {
 
   const proteins = ingredients.filter((ing) => ing.type === 'protein')
   const carbs = ingredients.filter((ing) => ing.type === 'carb')
-  const veggies = ingredients.filter((ing) => ing.type === 'veg')
+  const veg = ingredients.filter((ing) => ing.type === 'veg')
 
   return (
     <div className="space-y-6 container">
@@ -77,7 +77,7 @@ export function RecipePicker({ onComplete }) {
               <SelectValue placeholder="Select vegetable" />
             </SelectTrigger>
             <SelectContent>
-              {veggies.map((veg) => (
+              {veg.map((veg) => (
                 <SelectItem key={veg.name} value={veg.name}>
                   {veg.name}
                 </SelectItem>

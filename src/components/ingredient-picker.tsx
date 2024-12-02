@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
 import { PlusCircle } from 'lucide-react'
+import { Ingredient } from '@/types/ingredients'
 
 export default function IngredientPicker() {
   const [newIngredient, setNewIngredient] = useState('')
