@@ -2,6 +2,7 @@
 
 import { getRecipe } from '@/app/actions'
 import { useRecipeStore } from '@/store/use-recipe-store'
+import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { useEffect, useState } from 'react'
 
 export default function Step3({ onComplete }) {
@@ -15,6 +16,15 @@ export default function Step3({ onComplete }) {
     recipeText,
   } = useRecipeStore()
 
+  const {
+    equipment,
+    allergies,
+    dietPreferences,
+    servings,
+    units,
+    additionalRequirements,
+  } = useIngredientsStore()
+
   useEffect(() => {
     async function fetchRecipe() {
       if (!selectedMeal || !selectedProtein || !selectedCarb || !selectedVeg)
@@ -27,6 +37,12 @@ export default function Step3({ onComplete }) {
           protein: selectedProtein,
           carb: selectedCarb,
           veg: selectedVeg,
+          equipment,
+          allergies,
+          dietPreferences,
+          servings,
+          units,
+          additionalRequirements,
         })
         setRecipeText(text)
       } finally {
