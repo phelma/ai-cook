@@ -57,6 +57,7 @@ export default function Wizard() {
         <Timeline
           steps={steps.map((step) => step.title)}
           currentStep={currentStep}
+          onStepClick={setCurrentStep}
         />
       </CardHeader>
       <CardContent>

@@ -3,15 +3,17 @@ import { Check } from 'lucide-react'
 interface TimelineProps {
   steps: string[]
   currentStep: number
+  onStepClick: (step: number) => void
 }
 
-export default function Timeline({ steps, currentStep }: TimelineProps) {
+export default function Timeline({ steps, currentStep, onStepClick }: TimelineProps) {
   return (
     <div className="flex justify-between mb-8">
       {steps.map((step, index) => (
         <div key={index} className="flex flex-col items-center">
-          <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center ${
+          <button
+            onClick={() => onStepClick(index + 1)}
+            className={`w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 ${
               index < currentStep
                 ? 'bg-primary text-primary-foreground'
                 : index === currentStep
@@ -24,7 +26,7 @@ export default function Timeline({ steps, currentStep }: TimelineProps) {
             ) : (
               <span>{index + 1}</span>
             )}
-          </div>
+          </button>
           <div className="text-xs mt-2 text-center">{step}</div>
           {index < steps.length - 1 && (
             <div
