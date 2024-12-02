@@ -24,9 +24,9 @@ export default function Wizard() {
   })
 
   const steps = [
-    { title: 'Personal Info', component: Step1 },
-    { title: 'Select Plan', component: Step2 },
-    { title: 'Confirmation', component: Step3 },
+    { title: 'Pick Ingredients', component: Step1 },
+    { title: 'Select a Meal', component: Step2 },
+    { title: 'Recipe', component: Step3 },
   ]
 
   const handleNext = () => {
@@ -66,11 +66,12 @@ export default function Wizard() {
         <Button onClick={handlePrevious} disabled={currentStep === 1}>
           Previous
         </Button>
-        {currentStep < steps.length ? (
-          <Button onClick={handleNext}>Next</Button>
-        ) : (
-          <Button onClick={handleSubmit}>Submit</Button>
-        )}
+        {
+          currentStep < steps.length ? (
+            <Button onClick={handleNext}>Next</Button>
+          ) : null
+          // <Button onClick={handleSubmit}>Submit</Button>
+        }
       </CardFooter>
     </Card>
   )
