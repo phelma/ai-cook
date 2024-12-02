@@ -2,6 +2,7 @@
 
 import { generateText } from 'ai'
 import { anthropic } from '@ai-sdk/anthropic'
+import { MEAL_IDEAS_PROMPT, RECIPE_PROMPT } from '../prompts'
 
 export async function getMealIdeas({
   protein,
@@ -12,7 +13,7 @@ export async function getMealIdeas({
   carb: string
   veg: string
 }) {
-  const prompt = `Generate 5 meal ideas using these ingredients: ${protein}, ${carb}, and ${veg}. Only output the meal names, with no numbers, separated by newlines, include the ingredient names in the meal name where appropriate.`
+  const prompt = MEAL_IDEAS_PROMPT(protein, carb, veg)
   const { text, finishReason, usage } = await generateText({
     model: anthropic('claude-3-5-haiku-latest'),
     prompt,
@@ -32,10 +33,7 @@ export async function getRecipe({
   carb: string
   veg: string
 }) {
-  const prompt = `Generate a detailed recipe for "${mealName}" using ${protein}, ${carb}, and ${veg} as the main ingredients. Include:
-  1. A list of all ingredients with quantities
-  2. Step by step cooking instructions
-  Format the output with clear sections for ingredients and instructions.`
+  const prompt = RECIPE_PROMPT(mealName, protein, carb, veg)
   
   const { text, finishReason, usage } = await generateText({
     model: anthropic('claude-3-5-haiku-latest'),
