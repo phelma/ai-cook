@@ -4,8 +4,8 @@ import defaultIngredients from '@/data/default-ingredients.json'
 
 describe('useIngredientsStore', () => {
   beforeEach(() => {
+    // Don't reset the store, let it initialize with default ingredients
     useIngredientsStore.setState({
-      ingredients: [],
       selectedIngredients: [],
       equipment: [],
       allergies: [],

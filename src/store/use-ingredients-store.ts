@@ -40,7 +40,7 @@ export const useIngredientsStore = create<IngredientsState>()(
           })),
           ...defaultIngredients.carb.map((name) => ({ name, type: 'carb' as const })),
           ...defaultIngredients.veg.map((name) => ({ name, type: 'veg' as const })),
-        ],
+        ] as Ingredient[],
         selectedIngredients: [],
         equipment: [],
         allergies: [],
