@@ -44,7 +44,7 @@ export function RecipeSuggestions({ onComplete }) {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold">Recipe Suggestions</h2>
+      <h2 className="text-2xl font-bold">Recipe suggestions</h2>
       <div className="mt-2">
         {isLoading ? (
           <div className="flex justify-center items-center min-h-[200px]">
@@ -52,8 +52,9 @@ export function RecipeSuggestions({ onComplete }) {
           </div>
         ) : suggestions.length === 0 ? (
           <div className="text-stone-500">
-            Waiting for ingredient selection...
+            No recipes generated yet. Click generate to get AI suggestions.
           </div>
+          <Button onClick={() => generateMeals()}>Generate Recipe Ideas</Button>
         ) : (
           <div className="space-y-4">
             {suggestions.map((recipe) => (
