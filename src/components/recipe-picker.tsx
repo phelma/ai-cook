@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from './ui/select'
 
-export function RecipePicker() {
+export function RecipePicker({ onComplete }) {
   const ingredients = useIngredientsStore((state) => state.ingredients)
   const {
     selectedProtein,

@@ -59,7 +59,7 @@ export default function Wizard() {
         />
       </CardHeader>
       <CardContent>
-        <CurrentStepComponent next={handleNext} />
+        <CurrentStepComponent onComplete={handleNext} />
       </CardContent>
     </Card>
   )
