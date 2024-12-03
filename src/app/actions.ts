@@ -4,6 +4,12 @@ import { anthropic } from '@ai-sdk/anthropic'
 import { generateText } from 'ai'
 import { MEAL_IDEAS_PROMPT, RECIPE_PROMPT } from '../prompts'
 
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY
+
+if (!ANTHROPIC_API_KEY) {
+  throw new Error('ANTHROPIC_API_KEY is not set')
+}
+
 export async function getMealIdeas({
   protein,
   carb,
