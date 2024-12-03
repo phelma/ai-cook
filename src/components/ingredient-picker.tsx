@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { useIngredientsStore } from '@/store/use-ingredients-store'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -218,7 +219,9 @@ export default function IngredientPicker() {
         />
       </div>
 
-      <Button className="w-full">Find Recipes</Button>
+      <Link href="/" className="w-full">
+        <Button className="w-full">Find Recipes</Button>
+      </Link>
     </div>
   )
 }
