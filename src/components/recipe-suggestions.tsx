@@ -5,7 +5,7 @@ import { useRecipeStore } from '@/store/use-recipe-store'
 import { Button } from './ui/button'
 import { getMealIdeas } from '@/app/actions'
 
-export function RecipeSuggestions({ onComplete }: { onComplete: () => void }) {
+export function RecipeSuggestions() {
   const [isLoading, setIsLoading] = useState(false)
   const {
     generatedMeals,

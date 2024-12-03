@@ -61,17 +61,6 @@ export default function Wizard() {
       <CardContent>
         <CurrentStepComponent next={handleNext} />
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button onClick={handlePrevious} disabled={currentStep === 1}>
-          Previous
-        </Button>
-        {
-          currentStep < steps.length ? (
-            <Button onClick={handleNext}>Next</Button>
-          ) : null
-          // <Button onClick={handleSubmit}>Submit</Button>
-        }
-      </CardFooter>
     </Card>
   )
 }
