@@ -36,9 +36,7 @@ describe('RecipeSuggestions', () => {
   })
 
   it('renders without crashing', () => {
-    const { getByText } = render(
-      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
-    )
+    const { getByText } = render(<RecipeSuggestions />)
     expect(getByText('Recipe suggestions')).toBeDefined()
   })
 
@@ -49,9 +47,7 @@ describe('RecipeSuggestions', () => {
     }
     vi.mocked(useRecipeStore).mockImplementation(() => stateWithMeals)
 
-    const { getByText } = render(
-      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
-    )
+    const { getByText } = render(<RecipeSuggestions />)
     expect(getByText('Meal 1')).toBeDefined()
     expect(getByText('Meal 2')).toBeDefined()
   })
@@ -64,16 +60,12 @@ describe('RecipeSuggestions', () => {
     }
     vi.mocked(useRecipeStore).mockImplementation(() => stateWithRecipe)
 
-    const { getByText } = render(
-      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
-    )
+    const { getByText } = render(<RecipeSuggestions />)
     expect(getByText('Recipe instructions')).toBeDefined()
   })
 
   it('handles loading state correctly', () => {
-    const { container } = render(
-      <RecipeSuggestions protein="Chicken" carb="Rice" veg="Broccoli" />
-    )
+    const { container } = render(<RecipeSuggestions />)
     const loadingSpinner = container.querySelector('.animate-spin')
     expect(loadingSpinner).toBeDefined()
   })
@@ -87,12 +79,7 @@ describe('RecipeSuggestions', () => {
     vi.mocked(useRecipeStore).mockImplementation(() => stateWithMeals)
 
     const { getByText } = render(
-      <RecipeSuggestions
-        protein="Chicken"
-        carb="Rice"
-        veg="Broccoli"
-        onComplete={mockOnComplete}
-      />
+      <RecipeSuggestions onComplete={mockOnComplete} />
     )
 
     getByText('Meal 1').click()

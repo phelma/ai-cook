@@ -3,13 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { Settings } from 'lucide-react'
 import Link from 'next/link'
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useState } from 'react'
 import Step1 from './Step1'
 import Step2 from './Step2'
@@ -28,12 +22,6 @@ export default function Wizard() {
   const handleNext = () => {
     if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1)
-    }
-  }
-
-  const handlePrevious = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1)
     }
   }
 
