@@ -1,5 +1,5 @@
 'use server'
-
+export const runtime = 'edge'
 import { anthropic } from '@ai-sdk/anthropic'
 import { generateText } from 'ai'
 import { MEAL_IDEAS_PROMPT, RECIPE_PROMPT } from '../prompts'
