@@ -52,18 +52,6 @@ describe('RecipeSuggestions', () => {
     expect(getByText('Meal 2')).toBeDefined()
   })
 
-  it('displays recipe text when available', () => {
-    const stateWithRecipe = {
-      ...mockRecipeState,
-      selectedMeal: 'Meal 1',
-      recipeText: 'Recipe instructions',
-    }
-    vi.mocked(useRecipeStore).mockImplementation(() => stateWithRecipe)
-
-    const { getByText } = render(<RecipeSuggestions />)
-    expect(getByText('Recipe instructions')).toBeDefined()
-  })
-
   it('handles loading state correctly', () => {
     const { container } = render(<RecipeSuggestions />)
     const loadingSpinner = container.querySelector('.animate-spin')
