@@ -23,6 +23,7 @@ export function RecipeSuggestions({ onComplete }: { onComplete?: () => void }) {
   useEffect(() => {
     async function generateMeals() {
       if (!selectedProtein || !selectedCarb || !selectedVeg) return
+      if (generatedMeals) return // Skip if we already have meals generated
 
       setIsLoading(true)
       try {
@@ -40,7 +41,7 @@ export function RecipeSuggestions({ onComplete }: { onComplete?: () => void }) {
     }
 
     generateMeals()
-  }, [selectedProtein, selectedCarb, selectedVeg])
+  }, [selectedProtein, selectedCarb, selectedVeg, generatedMeals])
 
   return (
     <div className="space-y-4">
