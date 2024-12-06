@@ -40,14 +40,7 @@ export function RecipeSuggestions({ onComplete }: { onComplete?: () => void }) {
     }
 
     generateMeals()
-  }, [
-    selectedProtein,
-    selectedCarb,
-    selectedVeg,
-    setGeneratedMeals,
-    setSelectedMeal,
-    setRecipeText,
-  ])
+  }, [selectedProtein, selectedCarb, selectedVeg])
 
   return (
     <div className="space-y-4">
