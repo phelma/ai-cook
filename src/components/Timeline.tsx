@@ -16,8 +16,10 @@ export default function Timeline({
       {steps.map((step, index) => (
         <div key={index} className="flex flex-col items-center">
           <button
-            onClick={() => onStepClick?.(index + 1)}
-            className={`w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 ${
+            onClick={() => index < currentStep && onStepClick?.(index + 1)}
+            className={`w-8 h-8 rounded-full flex items-center justify-center ${
+              index < currentStep ? 'cursor-pointer hover:opacity-80' : 'cursor-not-allowed'
+            } ${
               index < currentStep
                 ? 'bg-primary text-primary-foreground'
                 : index === currentStep
